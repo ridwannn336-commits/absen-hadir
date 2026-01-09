@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Absensi Mahasiswa</title>
+</head>
+<body>
+
+<h2>Form Absensi</h2>
+
+<label>Nama:</label><br>
+<input type="text" id="nama"><br>
+
+<label>NIM:</label><br>
+<input type="text" id="nim"><br><br>
+
+<button onclick="absen()">Absen</button>
+<br><br>
+
+<a href="daftar.html">Lihat Daftar Hadir</a>
+
+<script>
+function absen() {
+  const nama = document.getElementById("nama").value;
+  const nim = document.getElementById("nim").value;
+
+  if (nama === "" || nim === "") {
+    alert("Nama dan NIM wajib diisi!");
+    return;
+  }
+
+  let dataAbsen = JSON.parse(localStorage.getItem("absensi")) || [];
+
+  dataAbsen.push({
+    nama: nama,
+    nim: nim,
+    waktu: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("absensi", JSON.stringify(dataAbsen));
+
+  alert("Absensi berhasil!");
+  document.getElementById("nama").value = "";
+  document.getElementById("nim").value = "";
+}
+</script>
+
+</body>
+</html>
